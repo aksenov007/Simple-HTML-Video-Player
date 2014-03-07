@@ -2,7 +2,6 @@ window.onload = function() {
 	var video = document.getElementById("video");
 	if (typeof(video.canPlayType) != "undefined" &&
 			video.canPlayType('video/mp4; codecs="avc1.42E01E, mp4a.40.2"') != "") {
-		
 		play_pause = function() {
 			if (video.paused == true) {
 				video.play();
@@ -22,7 +21,9 @@ window.onload = function() {
 		})
 		
 		seekBar = document.getElementById("seek-bar");
-		seekBar.max = video.duration;
+		video.addEventListener("loadedmetadata", function() {
+			seekBar.max = video.duration;
+		})
 		seekBar.value = "0";
 		seekBar.addEventListener("change", function() {
 			video.currentTime = seekBar.value;
